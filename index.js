@@ -9,7 +9,7 @@ dotenv.config()
 
 
 const app=express();
-const port=process.env.port || 5000;
+const PORT=process.env.PORT || 5000;
 
 console.log(process.env);
 
@@ -92,4 +92,4 @@ app.delete("/movies/:id",async (req,res)=>  {
    movie ? res.send(movie):res.status(404).send({message:"No movies found"}) 
 })
 
-app.listen(port,()=>{console.log("Port started at:",port)})
+app.listen(PORT,()=>{console.log("Port started at:",PORT)})
