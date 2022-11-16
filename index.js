@@ -77,6 +77,8 @@ app.get("/movies/:id",async (req,res)=>  {
     movie ? res.send(movie): res.status(404).send({message:"No movies found"}) 
    })
 
+   
+
 app.delete("/movies/:id",async (req,res)=>  {
 
   const {id}=req.params
