@@ -89,4 +89,4 @@ app.delete("/movies/:id",async (req,res)=>  {
    movie ? res.send(movie):res.status(404).send({message:"No movies found"}) 
 })
 
-app.listen(port,()=>{console.log("Port started at: ",port)})
+app.listen(port,()=>{console.log("Port started at:",port)})
