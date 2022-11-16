@@ -8,7 +8,7 @@ dotenv.config()
 
 
 const app=express();
-const port=process.env.port || 7000;
+const port=process.env.port || 5000;
 
 console.log(process.env);
 
@@ -77,7 +77,7 @@ app.get("/movies/:id",async (req,res)=>  {
     movie ? res.send(movie): res.status(404).send({message:"No movies found"}) 
    })
 
-   
+
 
 app.delete("/movies/:id",async (req,res)=>  {
 
