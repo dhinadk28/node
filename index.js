@@ -6,13 +6,17 @@ import * as dotenv from 'dotenv'
 import {movieRouter} from "./routes/movie.js"
 import {usersRouter} from "./routes/users.js"
 import bcrypt from "bcrypt"
-
-dotenv.config()
+import cors from "cors"
 
 
 
 export const app=express();
+app.use(cors());
+
+dotenv.config()
+
 const PORT=process.env.PORT;
+
 
 console.log(process.env);
 
