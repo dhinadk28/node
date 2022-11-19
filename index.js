@@ -3,12 +3,15 @@
 import express, { response } from "express";
 import { MongoClient } from 'mongodb';
 import * as dotenv from 'dotenv'
+import {movieRouter} from "./routes/movie.js"
+import {usersRouter} from "./routes/users.js"
+import bcrypt from "bcrypt"
 
 dotenv.config()
 
 
 
-const app=express();
+export const app=express();
 const PORT=process.env.PORT;
 
 console.log(process.env);
@@ -24,7 +27,7 @@ const MONGO_URL=process.env.MONGO_URL;
     console.log("MongoDB conected")
     return client;
  }
- const client = await createConnection();
+ export const client = await createConnection();
  app.use(express.json())
 
 
@@ -32,65 +35,10 @@ app.get("/",function(req,res){
     res.send("Hii guys😎😎😎😎😎")
 })
 
-app.get("/movies",async(req,res)=>{ 
-    const {language,rating}=req.query;
-    console.log(req.query,language)
-    // let filteredMovies=movies;
-    // if(language){
-    //     filteredMovies=filteredMovies.filter((mv) => mv.language==language)
-    // }
-    // if(rating){
-    //     filteredMovies=filteredMovies.filter((mv) =>mv.rating==rating)
-    // }
-if  (req.query.rating){
-    req.query.rating= +request.query.rating;
-}
-     
-
-    const movie=await client
-    .db("DATABASE")
-    .collection("movies")
-    .find(req.query)
-    .toArray();
-    res.send(movie)
-})
-
-app.post("/movies",async(req,res)=>{ 
-    const newMovies=req.body; 
- 
-    console.log(newMovies)
-
-     const result=await client
-    .db("DATABASE")
-    .collection("movies")
-    .insertMany(newMovies)
-    
-    res.send(result)
-})
-app.get("/movies/:id",async (req,res)=>  {
-
-    const {id}=req.params
-    console.log(id)
-    //const movie=movies.find((mv)=>mv.id==id)
-    const movie=await client
-    .db("DATABASE")
-    .collection("movies")
-    .findOne({id: id})
-    movie ? res.send(movie): res.status(404).send({message:"No movies found"}) 
-   })
-
-
-
-app.delete("/movies/:id",async (req,res)=>  {
-
-  const {id}=req.params
-  console.log(id)
-  //const movie=movies.find((mv)=>mv.id==id)
-  const movie=await client
-  .db("DATABASE")
-  .collection("movies")
-  .findOne({id: id})
-   movie ? res.send(movie):res.status(404).send({message:"No movies found"}) 
-})
+app.use("/movies",movieRouter)
+app.use("/users",usersRouter)
 
 app.listen(PORT,()=>{console.log("Port started at:",PORT)})
+
+ 
+
